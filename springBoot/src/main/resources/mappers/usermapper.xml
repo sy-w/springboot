@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-Mapper.dtd">
+<mapper namespace="com.phone.dao.UsersDao">
+<!--注册  id:必须和dao层接口的方法名一样 -->
+   <insert id="save" parameterType="com.phone.bean.Users" ><!-- 如果是Interger类型，就需要java.lang.Interger -->
+      insert into users(u_username,u_password) values(#{username},#{password})
+   </insert>
+   
+   <resultMap type="com.phone.bean.Users" id="us">
+   <id column="u_id" property="id"/><!-- 映射主键 -->
+   <result column="u_username" property="username"/>
+   <result column="u_phone" property="uphone"/>
+   <result column="u_address" property="uaddress"/>
+   <result column="u_password" property="password"/>
+   </resultMap>
+   
+   
+   
+   <select id="findByName" parameterType="com.phone.bean.Users" resultType="com.phone.bean.Users" resultMap="us">
+   select * from users where u_username=#{username} and u_password=#{password}
+   </select>
+   
+   <select id="list" resultMap="us"><!-- mybatis默认使用list对象封装 -->
+   select * from users
+   </select>
+   
+   <update id="update" parameterType="com.phone.bean.Users" >
+   UPDATE users set u_phone= #{uphone} and u_address= #{uaddress} WHERE u_username = #{username}
+   </update>
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-Mapper.dtd">
+<mapper namespace="com.phone.dao.BusinessDao">
+	<!-- 实体与表的映射配置 -->
+	<resultMap type="com.phone.bean.Business" id="Bus">
+		<id column="b_id" property="id" />
+		<result column="b_phone" property="phone" />
+		<result column="b_name" property="name" />
+		<result column="b_username" property="username" />
+		<result column="b_expirationdate" property="expirationdate" />
+	</resultMap>
+	
+	<select id="list" resultMap="Bus">
+		select * from business
+	</select>
+	
+	<delete id="delete" parameterType="com.phone.bean.Business" >
+	    delete from business where b_id = #{id}
+	</delete>
+
+</mapper>

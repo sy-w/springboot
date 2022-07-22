@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-Mapper.dtd">
+<!--  namespace:为当前映射文件添加一个命名空间 ，简单来说的话就是取个名字 -->
+<mapper namespace="com.phone.dao.ProductDao">
+	
+	<!-- 实体与表的映射配置 -->
+	<resultMap type="com.phone.bean.Product" id="pro">
+		<id column="ph_id" property="id"/>
+		<result column="ph_detail" property="detail"/>
+		<result column="ph_inventory" property="inventory"/>
+		<result column="ph_evaluation" property="evaluation"/>
+		<result column="ph_unitprice" property="unitprice"/>
+		<result column="ph_name" property="name"/>
+		<result column="ph_num" property="num"/>
+		<result column="ph_subtotal" property="subtotal"/>
+		<result column="ph_time" property="time"/>
+	</resultMap>
+	
+	<!-- 查询所有商品信息 -->
+	<select id="list" resultMap="pro">
+		select * from phone
+	</select>
+	
+
+	<!-- 商品数量递减 -->
+	<update id="update" parameterType="com.phone.bean.Product">
+   UPDATE phone set ph_inventory= ph_inventory-1 WHERE ph_name = #{name}
+   </update>
+   
+   <!-- 查询部分商品信息 -->
+   <select id="list2" parameterType="com.phone.bean.Product" resultMap="pro">
+    select * from car 
+   </select>
+    
+   <!-- 增加购物车中的数据 -->
+   <insert id="car" parameterType="com.phone.bean.Product" >
+    insert into car select * from phone where ph_name = #{name}
+   </insert>
+   <!-- 删除商品 -->
+   <delete id="delete" >
+   
+   </delete>
+</mapper>
